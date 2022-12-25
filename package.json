@@ -6,8 +6,11 @@
   "scripts": {
     "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "jasmine-ts 'src/tests/**/*Spec.ts'",
-    "tsc": "tsc"
+    "test": "npm run migration:up && jasmine-ts 'src/tests/**/*Spec.ts'",
+    "tsc": "tsc",
+    "migration:create-test-database": "ENV=test db-migrate -e test db:create product_api_test",
+    "migration:up": "ENV=test db-migrate -e test up",
+    "migration:drop-test-db": "ENV=test db-migrate -e test  db:drop product_api_test"
   },
   "author": "Udacity",
   "license": "ISC",

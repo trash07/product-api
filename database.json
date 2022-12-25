@@ -1,5 +1,15 @@
 {
+  "defaultEnv": "test",
   "test": {
+    "driver": "pg",
+    "user": {"ENV":  "POSTGRES_USER"},
+    "password": {"ENV":  "POSTGRES_PASSWORD"},
+    "host": "0.0.0.0",
+    "database": {"ENV":  "POSTGRES_DB_TEST"},
+    "port": "5432",
+    "schema": "public"
+  },
+  "dev": {
     "driver": "pg",
     "user": {"ENV":  "POSTGRES_USER"},
     "password": {"ENV":  "POSTGRES_PASSWORD"},

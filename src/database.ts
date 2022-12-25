@@ -8,20 +8,29 @@ const {
     POSTGRES_USER,
     POSTGRES_PASSWORD,
     POSTGRES_DB,
+    POSTGRES_DB_TEST,
     ENV
 } = process.env;
 
 let  client: Pool;
 
 if (ENV === Environment.TEST) {
+    console.log('TEST')
+    client = new Pool({
+        user: POSTGRES_USER,
+        password: POSTGRES_PASSWORD,
+        database: POSTGRES_DB_TEST
+    })
+}
+
+if (ENV === Environment.PROD) {
+    console.log('PROD')
     client = new Pool({
         user: POSTGRES_USER,
         password: POSTGRES_PASSWORD,
         database: POSTGRES_DB
     })
 }
-
-// Todo: add prod environment
 
 // @ts-ignore
 export default client;
