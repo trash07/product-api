@@ -34,12 +34,13 @@ const show = async (req: Request, res: Response) : Promise<void> => {
  * @param req
  * @param res
  */
-const create = async (req: Request, res: Response) : Promise<void> => {
+export const create = async (req: Request, res: Response) : Promise<void> => {
+    const body = req.body
     const user : User = {
-        username: req.body.username,
-        password: req.body.password,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
+        username: body.username,
+        password: body.password,
+        firstName: body.firstName,
+        lastName: body.lastName
     }
     try {
         const createdUser:User = await store.create(user)
@@ -50,8 +51,12 @@ const create = async (req: Request, res: Response) : Promise<void> => {
     }
 }
 
+/**
+ * User routes
+ * @param app
+ */
 export const userRoutes = (app: express.Application) : void => {
     app.get('/users', [validateJwt], index)
     app.get('/users/:id', [validateJwt], show)
-    app.post('/users', /*[validateJwt],*/ create)
+    app.post('/users', [validateJwt], create)
 }

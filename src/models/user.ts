@@ -75,7 +75,7 @@ export class UserStore {
      * @param item
      * @private
      */
-    private static convertItem(item: {id?: number, first_name: string, last_name: string, password: string, username: string}): User {
+    static convertItem(item: {id?: number, first_name: string, last_name: string, password: string, username: string}): User {
         return {
             id: item.id,
             firstName: item.first_name,
@@ -86,28 +86,6 @@ export class UserStore {
     }
 }
 
-
-// async create(u: User): Promise<User> {
-//     try {
-//         // @ts-ignore
-//         const conn = await Client.connect()
-//         const sql = 'INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *'
-//
-//         const hash = bcrypt.hashSync(
-//             u.password + pepper,
-//             parseInt(saltRounds)
-//         );
-//
-//         const result = await conn.query(sql, [u.username, hash])
-//         const user = result.rows[0]
-//
-//         conn.release()
-//
-//         return user
-//     } catch(err) {
-//         throw new Error(`unable create user (${u.username}): ${err}`)
-//     }
-// }
 
 
 // AUTHENTICATE
