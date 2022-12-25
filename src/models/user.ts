@@ -4,7 +4,8 @@ export type User = {
     id?: number,
     firstName: string,
     lastName: string,
-    password: string
+    password: string,
+    username: string,
 }
 
 
@@ -66,12 +67,13 @@ export class UserStore {
      * @param item
      * @private
      */
-    private static convertItem(item: {id?: number, first_name: string, last_name: string, password: string}): User {
+    private static convertItem(item: {id?: number, first_name: string, last_name: string, password: string, username: string}): User {
         return {
             id: item.id,
             firstName: item.first_name,
             lastName: item.last_name,
-            password: item.password
+            password: item.password,
+            username: item.username
         }
     }
 }
