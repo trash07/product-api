@@ -1,4 +1,8 @@
 import client from "../database";
+import dotenv from "dotenv";
+import bcrypt from "bcrypt"
+
+dotenv.config()
 
 export type User = {
     id?: number,
@@ -48,15 +52,19 @@ export class UserStore {
      * Create a User
      * @param user
      */
-    async create(user: User): Promise<User|null> {
+    async create(user: User): Promise<User> {
         try {
-            // Todo: encode password with salt before saving into database
             const conn = await client.connect()
-            const sql = 'INSERT INTO users(first_name, last_name, password) VALUES ($1, $2, $3) RETURNING *'
-            const result = await conn.query(sql)
+            const pepper = process.env.SALT
+            const rounds = process.env.ROUNDS as unknown as string
+            const hash = bcrypt.hashSync(
+                user.password + pepper,
+                parseInt(rounds)
+            );
+            const sql = 'INSERT INTO users(first_name, last_name, password, username) VALUES ($1, $2, $3, $4) RETURNING *'
+            const result = await conn.query(sql, [user.firstName, user.lastName, hash, user.username])
             conn.release();
-            return (result.rowCount > 0) ?
-                UserStore.convertItem(result.rows[0]) : null
+            return UserStore.convertItem(result.rows[0])
         } catch (e) {
             throw new Error(`Could not create user ${e}`);
         }
@@ -77,3 +85,51 @@ export class UserStore {
         }
     }
 }
+
+
+// async create(u: User): Promise<User> {
+//     try {
+//         // @ts-ignore
+//         const conn = await Client.connect()
+//         const sql = 'INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *'
+//
+//         const hash = bcrypt.hashSync(
+//             u.password + pepper,
+//             parseInt(saltRounds)
+//         );
+//
+//         const result = await conn.query(sql, [u.username, hash])
+//         const user = result.rows[0]
+//
+//         conn.release()
+//
+//         return user
+//     } catch(err) {
+//         throw new Error(`unable create user (${u.username}): ${err}`)
+//     }
+// }
+
+
+// AUTHENTICATE
+
+// async authenticate(username: string, password: string): Promise<User | null> {
+//     const conn = await Client.connect()
+//     const sql = 'SELECT password_digest FROM users WHERE username=($1)'
+//
+//     const result = await conn.query(sql, [username])
+//
+//     console.log(password+pepper)
+//
+//     if(result.rows.length) {
+//
+//     const user = result.rows[0]
+//
+//     console.log(user)
+//
+//     if (bcrypt.compareSync(password+pepper, user.password_digest)) {
+//         return user
+//     }
+// }
+//
+// return null
+// }
