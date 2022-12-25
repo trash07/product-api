@@ -15,7 +15,6 @@ const {
 let  client: Pool;
 
 if (ENV === Environment.TEST) {
-    console.log('TEST')
     client = new Pool({
         user: POSTGRES_USER,
         password: POSTGRES_PASSWORD,
@@ -24,7 +23,6 @@ if (ENV === Environment.TEST) {
 }
 
 if (ENV === Environment.PROD) {
-    console.log('PROD')
     client = new Pool({
         user: POSTGRES_USER,
         password: POSTGRES_PASSWORD,
