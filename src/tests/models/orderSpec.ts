@@ -29,8 +29,8 @@ describe('Order  model test suite', () => {
 
 	it('index method should list orders', async () => {
 		const result = await store.index();
-		expect(Array.isArray(result)).toBeTrue()
-		expect(result.length).toBeGreaterThanOrEqual(0)
+		expect(Array.isArray(result)).toBeTrue();
+		expect(result.length).toBeGreaterThanOrEqual(0);
 	});
 
 	it('should define a create method', () => {
