@@ -68,6 +68,24 @@ export class OrderStore {
 	}
 
 	/**
+	 * Show an order
+	 * @param id
+	 */
+	async show(id: number): Promise<Order> {
+		try {
+			const conn = await client.connect();
+			const sql = `SELECT * FROM orders WHERE id = ($1)`;
+			const result = await conn.query(sql, [id]);
+			conn.release();
+			if (result.rowCount === 0)
+				throw new Error(`No order is associated to id ${id}`);
+			return result.rows[0];
+		} catch (e) {
+			throw new Error(`Could not find order ${id}, ${e}`);
+		}
+	}
+
+	/**
 	 * Add product to order
 	 * @param orderId
 	 * @param productId
@@ -150,6 +168,7 @@ export class OrderStore {
 			const conn = await client.connect();
 			const sql = `DELETE FROM order_products WHERE order_id = ($1) AND product_id = ($2)`;
 			await conn.query(sql);
+			conn.release();
 			return orderProduct;
 		} catch (e) {
 			throw new Error(

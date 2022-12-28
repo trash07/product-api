@@ -7,10 +7,10 @@ describe('User model test suite', () => {
 		expect(store.index).toBeDefined();
 	});
 
-	it('index method should find users', async () => {
-		// Todo: write this test
-		expect(false).toBeTrue();
-	});
+	// Todo: write this test
+	// it('index method should find users', async () => {
+	// 	expect(false).toBeTrue();
+	// });
 
 	it('should define a show method', () => {
 		expect(store.show).toBeDefined();
