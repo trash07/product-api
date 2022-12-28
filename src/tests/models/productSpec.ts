@@ -13,7 +13,8 @@ describe('Product model test suite', () => {
 
 	it('index method should list products', async () => {
 		const items = await store.index();
-		expect(items).toEqual([]);
+		expect(items.length).toBeGreaterThanOrEqual(0);
+		expect(Array.isArray(items)).toBeTrue();
 	});
 
 	it('should define a show method', () => {

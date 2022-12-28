@@ -1,15 +1,18 @@
 import { Order, OrderStore } from '../../models/order';
 import { User, UserStore } from '../../models/user';
 import { OrderStatus } from '../../utils/enums/order-status';
+import { ProductStore } from '../../models/product';
 
 describe('Order  model test suite', () => {
 	let store: OrderStore;
 	let userStore: UserStore;
+	let productStore: ProductStore;
 	let user: User;
 
 	beforeAll(async () => {
 		store = new OrderStore();
 		userStore = new UserStore();
+		productStore = new ProductStore();
 
 		const userDetails: User = {
 			username: 'order_user',
@@ -83,5 +86,32 @@ describe('Order  model test suite', () => {
 		expect(foundUser.status).toEqual(createdOrder.status);
 	});
 
+	it('should define a addProduct method', () => {
+		expect(store.addProduct).toBeDefined();
+	});
 
+	it('addProduct should add a product to an order', async () => {
+		const createdOrder = await store.create({
+			user_id: user.id as number,
+			order_date: new Date(),
+			status: OrderStatus.ACTIVE,
+		});
+		const createdProduct = await productStore.create({
+			price: 10,
+			name: 'Test product 1',
+		});
+		const quantity = 200;
+		const orderProduct = await store.addProduct(
+			createdOrder.id as number,
+			createdProduct.id as number,
+			quantity
+		);
+
+		expect(orderProduct).toEqual({
+			id: orderProduct.id as number,
+			product_id: createdProduct.id as number,
+			order_id: createdOrder.id as number,
+			quantity: quantity,
+		});
+	});
 });

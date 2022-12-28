@@ -102,7 +102,7 @@ export class OrderStore {
 			}
 			const conn = await client.connect();
 			const sql = `INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *`;
-			const result = await conn.query(sql);
+			const result = await conn.query(sql, [orderId, productId, quantity]);
 			conn.release();
 			return result.rows[0];
 		} catch (e) {
@@ -144,7 +144,7 @@ export class OrderStore {
 		try {
 			const conn = await client.connect();
 			const sql = `SELECT * FROM order_products WHERE order_id = ($1) AND product_id = ($2)`;
-			const result = await conn.query(sql);
+			const result = await conn.query(sql, [orderId, productId]);
 			conn.release();
 			return result.rowCount > 0 ? result.rows[0] : null;
 		} catch (e) {
