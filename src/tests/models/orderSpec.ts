@@ -114,4 +114,93 @@ describe('Order  model test suite', () => {
 			quantity: quantity,
 		});
 	});
+
+	it('should define an updateProduct method', () => {
+		expect(store.updateProduct).toBeDefined();
+	});
+
+	it('updateProduct should update a product quantity', async () => {
+		const order = await store.create({
+			user_id: user.id as number,
+			order_date: new Date(),
+			status: OrderStatus.COMPLETE,
+		});
+		const product = await productStore.create({
+			name: 'Product for update',
+			price: 1,
+		});
+
+		const orderProduct = await store.addProduct(
+			order.id as number,
+			product.id as number,
+			10
+		);
+
+		let quantity = 20;
+		const updatedProduct = await store.updateProduct(
+			order.id as number,
+			product.id as number,
+			quantity
+		);
+
+		expect(updatedProduct).toEqual({
+			id: updatedProduct.id as number,
+			quantity: quantity,
+			order_id: orderProduct.order_id,
+			product_id: orderProduct.product_id,
+		});
+	});
+
+	it('should define a getProductDetail method', () => {
+		expect(store.getProductDetail).toBeDefined();
+	});
+
+	it('getProductDetail should get product details', async () => {
+		const order = await store.create({
+			user_id: user.id as number,
+			order_date: new Date(),
+			status: OrderStatus.COMPLETE,
+		});
+
+		const product = await productStore.create({
+			name: 'Details product',
+			price: 15,
+		});
+
+		const orderedProduct = await store.addProduct(
+			order.id as number,
+			product.id as number,
+			10
+		);
+		expect(
+			await store.getProductDetail(order.id as number, product.id as number)
+		).toEqual(orderedProduct);
+	});
+
+	it('should define a removeProduct method', () => {
+		expect(store.removeProduct).toBeDefined();
+	});
+
+	it('removeProduct should remove a product from an order', async () => {
+		const order = await store.create({
+			order_date: new Date(),
+			status: OrderStatus.COMPLETE,
+			user_id: user.id as number,
+		});
+		const product = await productStore.create({
+			name: 'Product to be removed',
+			price: 28,
+		});
+		await store.addProduct(order.id as number, product.id as number, 18);
+
+		expect(
+			await store.isProductOrdered(order.id as number, product.id as number)
+		).toBeTrue();
+
+		await store.removeProduct(order.id as number, product.id as number);
+
+		expect(
+			await store.isProductOrdered(order.id as number, product.id as number)
+		).toBeFalse();
+	});
 });

@@ -167,7 +167,7 @@ export class OrderStore {
 			const orderProduct = await this.getProductDetail(orderId, productId);
 			const conn = await client.connect();
 			const sql = `DELETE FROM order_products WHERE order_id = ($1) AND product_id = ($2)`;
-			await conn.query(sql);
+			await conn.query(sql, [orderId, productId]);
 			conn.release();
 			return orderProduct;
 		} catch (e) {
