@@ -1,55 +1,55 @@
-import { Product, ProductStore } from '../../models/product';
+import { Product, ProductStore } from '../../models/product'
 
 describe('Product model test suite', () => {
-	let store: ProductStore;
+	let store: ProductStore
 
 	beforeEach(() => {
-		store = new ProductStore();
-	});
+		store = new ProductStore()
+	})
 
 	it('should define an index method', () => {
-		expect(store.index).toBeDefined();
-	});
+		expect(store.index).toBeDefined()
+	})
 
 	it('index method should list products', async () => {
-		const items = await store.index();
-		expect(Array.isArray(items)).toBeTrue();
-		expect(items.length).toBeGreaterThanOrEqual(0);
-	});
+		const items = await store.index()
+		expect(Array.isArray(items)).toBeTrue()
+		expect(items.length).toBeGreaterThanOrEqual(0)
+	})
 
 	it('should define a show method', () => {
-		expect(store.show).toBeDefined();
-	});
+		expect(store.show).toBeDefined()
+	})
 
 	it('show method should find a product', async () => {
 		const product: Product = {
 			name: 'Mango',
 			price: 2,
-		};
-		const savedProduct = await store.create(product);
-		expect(savedProduct).toEqual(await store.show(savedProduct.id as number));
-	});
+		}
+		const savedProduct = await store.create(product)
+		expect(savedProduct).toEqual(await store.show(savedProduct.id as number))
+	})
 
 	it('show method should throw error on invalid id input', async () => {
 		try {
-			await store.show(-1);
-			expect(false).toBeTruthy();
+			await store.show(-1)
+			expect(false).toBeTruthy()
 		} catch (err) {
-			expect(`${err}`).toContain(`Could not find product of reference -1`);
+			expect(`${err}`).toContain(`Could not find product of reference -1`)
 		}
-	});
+	})
 
 	it('should define a create method', () => {
-		expect(store.create).toBeDefined();
-	});
+		expect(store.create).toBeDefined()
+	})
 
 	it('create method should create new products', async () => {
 		const product: Product = {
 			name: 'Aloes vera',
 			price: 1,
-		};
-		const savedProduct = await store.create(product);
-		product.id = savedProduct.id;
-		expect(savedProduct).toEqual(product);
-	});
-});
+		}
+		const savedProduct = await store.create(product)
+		product.id = savedProduct.id
+		expect(savedProduct).toEqual(product)
+	})
+})

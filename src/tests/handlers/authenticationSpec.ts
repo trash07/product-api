@@ -1,12 +1,12 @@
-import supertest from 'supertest';
-import app from '../../server';
-import { User, UserStore } from '../../models/user';
-import dotenv from 'dotenv';
+import supertest from 'supertest'
+import app from '../../server'
+import { User, UserStore } from '../../models/user'
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
-const request = supertest(app);
-const store: UserStore = new UserStore();
+const request = supertest(app)
+const store: UserStore = new UserStore()
 
 describe('Authentication endpoints test suite', () => {
 	it('POST /register => should  register a new user', async () => {
@@ -16,12 +16,12 @@ describe('Authentication endpoints test suite', () => {
 			password: 'password',
 			firstName: 'Test',
 			lastName: 'Test',
-		};
-		const response = await request.post('/register').send(userDetails);
+		}
+		const response = await request.post('/register').send(userDetails)
 
 		// Expect positive response
-		expect(response.status).toEqual(201);
-	});
+		expect(response.status).toEqual(201)
+	})
 
 	it('POST /authenticate => should authenticate a registered user', async () => {
 		// Register a user
@@ -30,13 +30,13 @@ describe('Authentication endpoints test suite', () => {
 			password: '123',
 			lastName: 'Should',
 			firstName: 'Authenticate',
-		};
-		await store.create(userDetails);
+		}
+		await store.create(userDetails)
 
 		// Authenticate the user against the API
 		const response = await request
 			.post('/authenticate')
-			.send({ username: userDetails.username, password: userDetails.password });
-		expect(response.status).toEqual(200);
-	});
-});
+			.send({ username: userDetails.username, password: userDetails.password })
+		expect(response.status).toEqual(200)
+	})
+})

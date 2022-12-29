@@ -1,26 +1,26 @@
-import client from '../database';
+import client from '../database'
 
 export type Product = {
-	id?: number;
-	name: string;
-	price: number;
-};
+	id?: number
+	name: string
+	price: number
+}
 
 export class ProductStore {
-	private table = `products`;
+	private table = `products`
 
 	/**
 	 * List of Products
 	 */
 	async index(): Promise<Product[]> {
 		try {
-			const conn = await client.connect();
-			const sql = `SELECT * FROM ${this.table}`;
-			const result = await conn.query(sql);
-			conn.release();
-			return result.rows;
+			const conn = await client.connect()
+			const sql = `SELECT * FROM ${this.table}`
+			const result = await conn.query(sql)
+			conn.release()
+			return result.rows
 		} catch (e) {
-			throw new Error(`Could not find products ${e}`);
+			throw new Error(`Could not find products ${e}`)
 		}
 	}
 
@@ -30,16 +30,16 @@ export class ProductStore {
 	 */
 	async show(id: number): Promise<Product> {
 		try {
-			const conn = await client.connect();
-			const sql = `SELECT * FROM ${this.table} WHERE id = ($1)`;
-			const result = await conn.query(sql, [id]);
-			conn.release();
+			const conn = await client.connect()
+			const sql = `SELECT * FROM ${this.table} WHERE id = ($1)`
+			const result = await conn.query(sql, [id])
+			conn.release()
 			if (result.rowCount === 0) {
-				throw new Error(`Could not find product of reference ${id}`);
+				throw new Error(`Could not find product of reference ${id}`)
 			}
-			return result.rows[0];
+			return result.rows[0]
 		} catch (e) {
-			throw new Error(`Could not fetch product ${e}`);
+			throw new Error(`Could not fetch product ${e}`)
 		}
 	}
 
@@ -49,13 +49,13 @@ export class ProductStore {
 	 */
 	async create(product: Product): Promise<Product> {
 		try {
-			const conn = await client.connect();
-			const sql = `INSERT INTO ${this.table} (name, price) VALUES ($1, $2) RETURNING *`;
-			const result = await conn.query(sql, [product.name, product.price]);
-			conn.release();
-			return result.rows[0] as Product;
+			const conn = await client.connect()
+			const sql = `INSERT INTO ${this.table} (name, price) VALUES ($1, $2) RETURNING *`
+			const result = await conn.query(sql, [product.name, product.price])
+			conn.release()
+			return result.rows[0] as Product
 		} catch (e) {
-			throw new Error(`Could not create product ${e}`);
+			throw new Error(`Could not create product ${e}`)
 		}
 	}
 }
