@@ -9,7 +9,7 @@ const request = supertest(app);
 const store: UserStore = new UserStore();
 
 describe('Authentication endpoints test suite', () => {
-	it('should correctly register a user', async () => {
+	it('POST /register => should  register a new user', async () => {
 		// Send user data to the API
 		const userDetails: User = {
 			username: 'test',
@@ -23,7 +23,7 @@ describe('Authentication endpoints test suite', () => {
 		expect(response.status).toEqual(201);
 	});
 
-	it('should authenticate a registered user', async () => {
+	it('POST /authenticate => should authenticate a registered user', async () => {
 		// Register a user
 		const userDetails: User = {
 			username: 'test2',

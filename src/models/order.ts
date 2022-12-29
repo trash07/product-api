@@ -86,6 +86,21 @@ export class OrderStore {
 	}
 
 	/**
+	 * Get products of an order
+	 * @param id
+	 */
+	async getProducts(id: number): Promise<OrderProduct[]> {
+		try {
+			const conn = await client.connect();
+			const sql = `SELECT * FROM order_products WHERE order_id = ($1)`;
+			const result = await conn.query(sql, [id]);
+			return result.rows;
+		} catch (e) {
+			throw new Error(`Could not get order ${id} products, ${e}`);
+		}
+	}
+
+	/**
 	 * Add product to order
 	 * @param orderId
 	 * @param productId
