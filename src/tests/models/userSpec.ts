@@ -34,7 +34,7 @@ describe('User model test suite', () => {
 	})
 
 	it('create method should create a new user that can authenticate', async () => {
-		let password = 'tocreatepass'
+		const password = 'tocreatepass'
 		const createdUser = await store.create({
 			username: 'tocreate',
 			password: password,

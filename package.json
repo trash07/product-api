@@ -6,16 +6,19 @@
   "scripts": {
     "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "npm run migration:up && jasmine-ts 'src/tests/**/*Spec.ts'",
+    "test": "npm run tsc && npm run migration:create:database &&  npm run migration:up && jasmine-ts 'src/tests/**/*Spec.ts' && npm run migration:drop:database",
     "tsc": "tsc",
     "prettier": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
     "eslint": "eslint 'src/**/*.ts'",
-    "migration:create-test-database": "ENV=test db-migrate -e test db:create product_api_test",
     "migration:up": "ENV=test db-migrate -e test up",
-    "migration:drop-test-db": "ENV=test db-migrate -e test  db:drop product_api_test"
+    "migration:create:database": "npx . alx-manage-database --create -e test",
+    "migration:drop:database": "npx . alx-manage-database --drop -e test"
   },
   "author": "Udacity",
   "license": "ISC",
+  "bin": {
+    "alx-manage-database": "dist/bin/database.js"
+  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",
@@ -23,7 +26,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.5.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "yargs": "^17.6.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -32,6 +36,7 @@
     "@types/jsonwebtoken": "^8.5.9",
     "@types/pg": "^7.14.7",
     "@types/supertest": "^2.0.12",
+    "@types/yargs": "^17.0.18",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
     "db-migrate": "^0.11.13",

@@ -1,4 +1,4 @@
-import express, { request, Request, Response } from 'express'
+import express, { Request, Response } from 'express'
 import { Order, OrderStore } from '../models/order'
 
 const store = new OrderStore()
@@ -28,7 +28,7 @@ const show = async (req: Request, res: Response): Promise<void> => {
  * @param res
  */
 const create = async (req: Request, res: Response): Promise<void> => {
-	let order: Order = {
+	const order: Order = {
 		user_id: req.body.user_id,
 		order_date: req.body.order_date,
 		status: req.body.status,
@@ -48,7 +48,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
  */
 const update = async (req: Request, res: Response): Promise<void> => {
 	const id = req.params.id as unknown as number
-	let order: Order = {
+	const order: Order = {
 		user_id: req.body.user_id,
 		order_date: req.body.order_date,
 		status: req.body.status,

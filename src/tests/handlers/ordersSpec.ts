@@ -30,7 +30,7 @@ describe('Orders endpoint test suite', () => {
 	})
 
 	it('POST /orders => should create an order', async () => {
-		let orderInfos: Order = {
+		const orderInfos: Order = {
 			order_date: new Date(),
 			status: OrderStatus.ACTIVE,
 			user_id: user.id as number,
@@ -43,7 +43,7 @@ describe('Orders endpoint test suite', () => {
 	})
 
 	it('PUT /orders/:id => should update an order', async () => {
-		let order: Order = {
+		const order: Order = {
 			user_id: user.id as number,
 			order_date: new Date(),
 			status: OrderStatus.ACTIVE,
@@ -63,7 +63,7 @@ describe('Orders endpoint test suite', () => {
 	})
 
 	it('GET /orders/:id/products => should get products in an order', async () => {
-		let order: Order = {
+		const order: Order = {
 			user_id: user.id as number,
 			order_date: new Date(),
 			status: OrderStatus.ACTIVE,
@@ -85,7 +85,7 @@ describe('Orders endpoint test suite', () => {
 			name: 'Product 1',
 			price: 19,
 		})
-		let quantity = 10
+		const quantity = 10
 
 		const response = await request
 			.post(`/orders/${createdOrder.id}/products`)

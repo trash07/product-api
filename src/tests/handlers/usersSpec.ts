@@ -9,7 +9,7 @@ dotenv.config()
 describe('User endpoints test suite', () => {
 	let jwtToken: string
 	let user: User
-	let userStore: UserStore = new UserStore()
+	const userStore: UserStore = new UserStore()
 	const request = supertest(app)
 
 	beforeAll(async () => {

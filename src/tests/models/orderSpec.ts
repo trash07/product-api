@@ -137,7 +137,7 @@ describe('Order  model test suite', () => {
 			10
 		)
 
-		let quantity = 20
+		const quantity = 20
 		const updatedProduct = await store.updateProduct(
 			order.id as number,
 			product.id as number,
