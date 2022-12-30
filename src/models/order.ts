@@ -77,8 +77,13 @@ export class OrderStore {
 			const sql = `SELECT * FROM orders WHERE id = ($1)`
 			const result = await conn.query(sql, [id])
 			conn.release()
-			if (result.rowCount === 0)
+			if (result.rowCount === 0) {
 				throw new Error(`No order is associated to id ${id}`)
+			}
+			const order = result.rows[0];
+			const products = await this.getProducts(order.id)
+			if (products.length > 0)
+				order.products = products
 			return result.rows[0]
 		} catch (e) {
 			throw new Error(`Could not find order ${id}, ${e}`)
@@ -92,8 +97,9 @@ export class OrderStore {
 	async getProducts(id: number): Promise<OrderProduct[]> {
 		try {
 			const conn = await client.connect()
-			const sql = `SELECT * FROM order_products WHERE order_id = ($1)`
+			const sql = `SELECT * FROM order_products WHERE order_id = $1`
 			const result = await conn.query(sql, [id])
+			conn.release()
 			return result.rows
 		} catch (e) {
 			throw new Error(`Could not get order ${id} products, ${e}`)

@@ -67,7 +67,7 @@ const update = async (req: Request, res: Response): Promise<void> => {
  * @param res
  */
 const getProducts = async (req: Request, res: Response): Promise<void> => {
-	const id = req.query.id as unknown as number
+	const id = req.params.id as unknown as number
 	res.send(await store.getProducts(id))
 }
 
