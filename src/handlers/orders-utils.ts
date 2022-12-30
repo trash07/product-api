@@ -1,5 +1,6 @@
 import { OrderQueries } from '../services/queries/order-queries'
 import express, { Request, Response } from 'express'
+import { validateJwt } from '../utils/middleware/token-validator'
 
 const query = new OrderQueries()
 
@@ -44,6 +45,6 @@ const completedUserOrders = async (
  * @param app
  */
 export const orderUtilQueryRoutes = (app: express.Application): void => {
-	app.get('/current-user-order/:id', currentOrderByUser)
-	app.get('/completed-user-orders/:id', completedUserOrders)
+	app.get('/current-user-order/:id', [validateJwt], currentOrderByUser)
+	app.get('/completed-user-orders/:id', [validateJwt], completedUserOrders)
 }
