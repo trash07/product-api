@@ -13,7 +13,7 @@ export class OrderQueries {
 	async getCurrentOrderByUser(user_id: number): Promise<Order | null> {
 		try {
 			const conn = await client.connect()
-			const sql = `SELECT * FROM orders WHERE user_id = ($1) AND status = ($2) limit 1`
+			const sql = `SELECT * FROM orders WHERE user_id = ($1) AND status = ($2) ORDER BY order_date DESC limit 1`
 			const result = await conn.query(sql, [user_id, OrderStatus.ACTIVE])
 			conn.release()
 			if (result.rowCount > 0) {
