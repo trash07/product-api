@@ -1,12 +1,14 @@
 import client from '../database'
 import { OrderStatus } from '../utils/enums/order-status'
 import { OrderProduct } from './order-product'
+import { Product } from './product'
 
 export type Order = {
 	id?: number
 	user_id: number
 	status: OrderStatus
 	order_date: Date
+	products?: OrderProduct[]
 }
 
 export class OrderStore {
@@ -35,8 +37,8 @@ export class OrderStore {
 			const sql = `INSERT INTO orders (user_id, status, order_date) VALUES ($1, $2, $3) RETURNING *`
 			const result = await conn.query(sql, [
 				order.user_id,
-				OrderStatus.ACTIVE,
-				new Date(),
+				order.status,
+				order.order_date,
 			])
 			conn.release()
 			return result.rows[0]
@@ -80,10 +82,9 @@ export class OrderStore {
 			if (result.rowCount === 0) {
 				throw new Error(`No order is associated to id ${id}`)
 			}
-			const order = result.rows[0];
+			const order = result.rows[0]
 			const products = await this.getProducts(order.id)
-			if (products.length > 0)
-				order.products = products
+			if (products.length > 0) order.products = products
 			return result.rows[0]
 		} catch (e) {
 			throw new Error(`Could not find order ${id}, ${e}`)

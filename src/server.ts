@@ -4,6 +4,7 @@ import { productRoutes } from './handlers/products'
 import { userRoutes } from './handlers/users'
 import { authenticationRoutes } from './handlers/authentication'
 import { orderRoutes } from './handlers/orders'
+import { orderUtilQueryRoutes } from './handlers/orders-utils'
 
 const app: express.Application = express()
 const address = '0.0.0.0:3000'
@@ -17,6 +18,7 @@ app.get('/', function (req: Request, res: Response) {
 userRoutes(app)
 orderRoutes(app)
 productRoutes(app)
+orderUtilQueryRoutes(app)
 authenticationRoutes(app)
 
 app.listen(3000, function () {
