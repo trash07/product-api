@@ -10,7 +10,7 @@ To install the project, you must follow these steps:
 
 1. Configure the environment
 2. Run docker-compose to lunch the database system
-3.  Install project dependencies (node dependencies)
+3. Install project dependencies (node dependencies)
 4. Run the tests and lunch the application
 
 ### 1. Configure the environment
@@ -37,7 +37,48 @@ The following table lists the important variables that must be present in the en
 This task assumes you have docker and docker-compose installed. If not follow these links to install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
 Once you have docker and docked compose installed, you can start the database server with the following command:
 
-
-    ``docker``-compose up -d
+```bash
+docker-compose up -d 
+```
 
 Depending on your operating system, you can have to add **sudo** to run the command with super user privileges. 
+
+### 3. Install project dependencies
+To install project dependencies you can run the following commands depending on your package manager.
+```bash
+npm install
+```
+or 
+```bash 
+yarn
+```
+
+### 4. Running tests
+:warning: **Note**: Running tests means you are in test mode. It simply means the the **ENV** key in the **.env** file must contain **ENV=test**
+
+To run the test suites, run the following command: 
+```bash
+npm run test
+```
+Don't mind creating the test database by hand. The test script can do the following if the **.env** file is well configured:
+1. Create the test database
+2. Run all tests 
+3. Cleanup the test database if everything went on succesfully.
+
+### 5. Lunching the application
+To succesfully lunch the application, you need edit the .env file and change the ENV key back to prod. 
+You can now lunch the application by running:
+
+```bash
+npm run start
+```
+**If everything went on succesfully, the application will start on port 3000**.
+
+You can now access it typing: http://localhost:3000
+
+## Running environment infos
+
+| Element          | Value                 |
+|------------------|-----------------------|
+| Application port | 3000                  |
+| Application URL  | http://localhost:3000 |
