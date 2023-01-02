@@ -78,7 +78,9 @@ You can now access it typing: http://localhost:3000
 
 ## Running environment infos
 
-| Element          | Value                 |
-|------------------|-----------------------|
-| Application port | 3000                  |
-| Application URL  | http://localhost:3000 |
+| Element                  | Value                 |
+|--------------------------|-----------------------|
+| Application port         | 3000                  |
+| Application URL          | http://localhost:3000 |
+| PostgreSQL database host | localhost             |
+| PostgreSQL database PORT | 5432                  |
