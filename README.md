@@ -1,54 +1,86 @@
-# Storefront Backend Project
+# Storefront backend (products-api)
+The purpose of this file is to document the storefront backend project. It contains the following informations:
 
-## Getting Started
+- How to install and configure the project
+- How to setup and configure the database
+- How run tests and lunch application
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+## Installation
+To install the project, you must follow these steps:
 
-## Required Technologies
-Your application must make use of the following libraries:
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+1. Configure the environment
+2. Run docker-compose to lunch the database system
+3. Install project dependencies (node dependencies)
+4. Run the tests and lunch the application
 
-## Steps to Completion
+### 1. Configure the environment
+To configure the application and setup the database you need to configure the environment.
+It  consists of adding  a **.env** inside the root folder of the application.  
+By default there is a **.env.example** file in the project directory. 
+It contains a sample environment configuration for the project.
+You can copy it and rename it to **.env** and provide your configuration values.
+The following table lists the important variables that must be present in the env file.
 
-### 1. Plan to Meet Requirements
+| **Environment variable** | **Purpose**                                                  | **Type of content**                       |
+|--------------------------|--------------------------------------------------------------|-------------------------------------------|
+| **ENV**                  | Configure the environment the application will be running in | Possible values are **prod** and **test** |
+| **TOKEN_SECRET**         | The secret key used to sign JWT tokens                       | Any long string                           |
+| **SALT**                 | Addition for password encryption                             | Any long string                           |
+| **ROUNDS**               | Encryption strengthning rounds                               | **An integer value (Example: 10)**        |
+| **POSTGRES_USER**        | PostgreSQL database user name                                | String value                              |
+| **POSTGRES_PASSWORD**    | PostgreSQL database password                                 | String value                              |
+| **POSTGRES_DB**          | PostgreSQL production database name                          | String value                              |
+| **POSTGRES_DB_TEST**     | PostgreSQL test database name                                | String value                              |
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+### 2. Run docker-compose
+This task assumes you have docker and docker-compose installed. If not follow these links to install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
+Once you have docker and docked compose installed, you can start the database server with the following command:
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+```bash
+docker-compose up -d 
+```
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
+Depending on your operating system, you can have to add **sudo** to run the command with super user privileges. 
 
-### 2.  DB Creation and Migrations
+### 3. Install project dependencies
+To install project dependencies you can run the following commands depending on your package manager.
+```bash
+npm install
+```
+or 
+```bash 
+yarn
+```
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+### 4. Running tests
+:warning: **Note**: Running tests means you are in test mode. It simply means the the **ENV** key in the **.env** file must contain **ENV=test**
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+To run the test suites, run the following command: 
+```bash
+npm run test
+```
+Don't mind creating the test database by hand. The test script can do the following if the **.env** file is well configured:
+1. Create the test database
+2. Run all tests 
+3. Cleanup the test database if everything went on succesfully.
 
-### 3. Models
+### 5. Lunching the application
+To succesfully lunch the application, you need edit the .env file and change the ENV key back to prod. 
+You can now lunch the application by running:
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+```bash
+npm run start
+```
+**If everything went on succesfully, the application will start on port 3000**.
 
-### 4. Express Handlers
+You can now access it typing: http://localhost:3000
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
+## Running environment infos
 
-### 5. JWTs
-
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
-
-### 6. QA and `README.md`
-
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
-
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+| Element                  | Value                 |
+|--------------------------|-----------------------|
+| Application port         | 3000                  |
+| Application URL          | http://localhost:3000 |
+| PostgreSQL database host | localhost             |
+| PostgreSQL database PORT | 5432                  |
