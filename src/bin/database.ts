@@ -61,8 +61,11 @@ connectDatabase(username, password, defaultDatabase)
 
 		// @ts-ignore
 		if (yargs.argv.drop && yargs.argv.e === process.env.ENV) {
+			// @see https://dba.stackexchange.com/questions/11893/force-drop-db-while-others-may-be-connected
 			console.log(`Dropping test database ${dbname}`)
-			await template1Client.query(`DROP DATABASE ${dbname} WITH (FORCE)`)
+			const sql = `UPDATE pg_database SET datallowconn = 'false' WHERE datname = '${dbname}';  SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${dbname}';`
+			await template1Client.query(sql)
+			await template1Client.query(`DROP DATABASE ${dbname};`)
 			console.log(`Test database ${dbname} dropped`)
 			process.exit(0)
 		}
