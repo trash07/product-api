@@ -63,5 +63,43 @@ describe('Product endpoints test suite', () => {
 		expect(response.status).toEqual(401)
 	})
 
-	// Todo: add product update and delete specs here
+	it('PUT /products/:id => should update a product if JWT is provided', async () => {
+		const createdProduct = await productStore.create({
+			name: 'Product update',
+			price: 1998,
+		})
+
+		const updateProductInfos: Product = {
+			name: 'Product update 1',
+			price: 2000,
+		}
+		const response = await request
+			.put(`/products/${createdProduct.id}`)
+			.auth(jwtToken, { type: 'bearer' })
+			.send(updateProductInfos)
+
+		expect(response.status).toEqual(202)
+		expect(response.body.id).toEqual(createdProduct.id)
+		expect(response.body.name).toEqual(updateProductInfos.name)
+		expect(response.body.price).toEqual(updateProductInfos.price)
+	})
+
+	it('DELETE /products/:id => should delete a created product if JWT is provided', async () => {
+		const createdProduct = await productStore.create({
+			name: 'Drop product',
+			price: 1999,
+		})
+
+		const response = await request
+			.delete(`/products/${createdProduct.id}`)
+			.auth(jwtToken, { type: 'bearer' })
+
+		expect(response.status).toEqual(200)
+		try {
+			await productStore.show(createdProduct.id as number)
+			expect(false).toBeTrue()
+		} catch (e) {
+			expect(true).toBeTrue()
+		}
+	})
 })

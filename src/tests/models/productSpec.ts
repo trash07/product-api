@@ -52,4 +52,43 @@ describe('Product model test suite', () => {
 		product.id = savedProduct.id
 		expect(savedProduct).toEqual(product)
 	})
+
+	it('should define an update method', () => {
+		expect(store.update).toBeDefined()
+	})
+
+	it('update method should update a product', async () => {
+		const createdProduct = await store.create({
+			name: 'Product Update',
+			price: 12,
+		})
+
+		const updatedProduct = await store.update(createdProduct.id as number, {
+			name: 'Product Update 1',
+			price: 13,
+		})
+
+		expect(await store.show(createdProduct.id as number)).toEqual(
+			updatedProduct
+		)
+	})
+
+	it('should define a delete method', () => {
+		expect(store.delete).toBeDefined()
+	})
+
+	it('delete method should delete a product', async () => {
+		const createdProduct = await store.create({
+			name: 'Mango',
+			price: 45,
+		})
+
+		await store.delete(createdProduct.id as number)
+		try {
+			expect(await store.show(createdProduct.id as number))
+			expect(false).toBeTrue()
+		} catch (e) {
+			expect(true).toBeTrue()
+		}
+	})
 })

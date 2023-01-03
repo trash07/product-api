@@ -45,6 +45,42 @@ const create = async (req: Request, res: Response): Promise<void> => {
 }
 
 /**
+ * Update a product
+ * @param req
+ * @param res
+ */
+const update = async (req: Request, res: Response): Promise<void> => {
+	try {
+		let product: Product = {
+			name: req.body.name,
+			price: req.body.price,
+		}
+		const updatedProduct = await store.update(
+			req.params.id as unknown as number,
+			product
+		)
+		res.status(202).send(updatedProduct).end()
+	} catch (err) {
+		res.status(400).send(`${err}`)
+	}
+}
+
+/**
+ * Delete a product
+ * @param req
+ * @param res
+ */
+const remove = async (req: Request, res: Response): Promise<void> => {
+	try {
+		const id = req.params.id as unknown as number
+		const product = await store.delete(id)
+		res.json(product)
+	} catch (e) {
+		res.status(400).send(`${e}`)
+	}
+}
+
+/**
  * Define product related routes
  * @param app
  */
@@ -52,4 +88,6 @@ export const productRoutes = (app: express.Application) => {
 	app.get('/products', index)
 	app.get('/products/:id', show)
 	app.post('/products', [validateJwt], create)
+	app.put('/products/:id', [validateJwt], update)
+	app.delete('/products/:id', [validateJwt], remove)
 }
