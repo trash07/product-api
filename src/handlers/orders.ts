@@ -62,6 +62,20 @@ const update = async (req: Request, res: Response): Promise<void> => {
 }
 
 /**
+ * Delete an order
+ * @param req
+ * @param res
+ */
+const remove = async (req: Request, res: Response): Promise<void> => {
+	try {
+		const order = await store.delete(req.params.id as unknown as number)
+		res.send(order).end()
+	} catch (e) {
+		res.sendStatus(400).end()
+	}
+}
+
+/**
  * Get products in a order
  * @param req
  * @param res
@@ -153,6 +167,7 @@ export const orderRoutes = (app: express.Application): void => {
 	app.get('/orders/:id', show)
 	app.post('/orders', create)
 	app.put('/orders/:id', update)
+	app.delete('/orders/:id', remove)
 	app.get('/orders/:id/products', getProducts)
 	app.post('/orders/:id/products', addProduct)
 	app.get('/orders/:id/products/:productId', getProductDetails)

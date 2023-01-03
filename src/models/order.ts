@@ -90,7 +90,22 @@ export class OrderStore {
 		}
 	}
 
-	// Todo: add delete methods
+	/**
+	 * Delete an order
+	 * @param id
+	 */
+	async delete(id: number): Promise<Order> {
+		try {
+			const order = await this.show(id)
+			const conn = await client.connect()
+			const sql = `DELETE FROM orders WHERE id = ($1)`
+			await conn.query(sql, [id])
+			conn.release()
+			return order
+		} catch (e) {
+			throw new Error(`Could not delete order, ${e}`)
+		}
+	}
 
 	/**
 	 * Get products of an order

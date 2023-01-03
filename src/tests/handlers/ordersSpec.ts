@@ -62,7 +62,22 @@ describe('Orders endpoint test suite', () => {
 		expect(response.body.status).toEqual(updateInfos.status)
 	})
 
-	// Todo: add orders delete specs here
+	it('DELETE /orders/:id => should delete an existing order', async () => {
+		const order = await orderStore.create({
+			order_date: new Date(),
+			status: OrderStatus.ACTIVE,
+			user_id: user.id as number,
+		})
+
+		const response = await request.delete(`/orders/${order.id}`)
+		expect(response.status).toEqual(200)
+		try {
+			await orderStore.show(order.id as number)
+			expect(false).toBeTrue()
+		} catch (e) {
+			expect(true).toBeTrue()
+		}
+	})
 
 	it('GET /orders/:id/products => should get products in an order', async () => {
 		const order: Order = {

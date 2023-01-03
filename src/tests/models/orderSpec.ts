@@ -87,6 +87,27 @@ describe('Order  model test suite', () => {
 		expect(foundUser.status).toEqual(createdOrder.status)
 	})
 
+	it('should define a delete method', () => {
+		expect(store.delete).toBeDefined()
+	})
+
+	it('delete method should delete an order', async () => {
+		const createdOrder = await store.create({
+			user_id: user.id as number,
+			order_date: new Date(),
+			status: OrderStatus.ACTIVE,
+		})
+
+		await store.delete(createdOrder.id as number)
+		try {
+			const order = await store.show(createdOrder.id as number)
+			console.log(order)
+			expect(false).toBeTrue()
+		} catch (e) {
+			expect(true).toBeTrue()
+		}
+	})
+
 	it('should define a addProduct method', () => {
 		expect(store.addProduct).toBeDefined()
 	})
