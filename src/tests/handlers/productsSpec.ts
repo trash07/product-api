@@ -62,4 +62,6 @@ describe('Product endpoints test suite', () => {
 		const response = await request.post('/products').send(productData)
 		expect(response.status).toEqual(401)
 	})
+
+	// Todo: add product update and delete specs here
 })

@@ -73,4 +73,44 @@ describe('User endpoints test suite', () => {
 		const response = await request.post('/users').send(userData)
 		expect(response.status).toEqual(401)
 	})
+
+	it('PUT /users/:id => should update a user if JWT is provided', async () => {
+		let userData: User = {
+			username: 'update-username',
+			password: '123',
+			firstName: 'UpdateFirstname',
+			lastName: 'UpdateLastname',
+		}
+
+		const createdUser = await userStore.create(userData)
+
+		const id = createdUser.id as number
+		userData = {
+			username: 'update-username',
+			password: '1234',
+			firstName: 'UpdateFirstnameXXX',
+			lastName: 'UpdateLastnameXXX',
+		}
+		const updateResponse = await request
+			.put(`/users/${id}`)
+			.send(userData)
+			.auth(jwtToken, { type: 'bearer' })
+		expect(updateResponse.status).toEqual(202)
+	})
+
+	it('DELETE /users/:id => should delete a user if JWT is provided', async () => {
+		const createdUser = await userStore.create({
+			firstName: 'ToDeleteUser',
+			lastName: 'UsernameDelete',
+			username: 'to-delete-username',
+			password: '123',
+		})
+
+		const deleteResponse = await request
+			.delete(`/users/${createdUser.id}`)
+			.auth(jwtToken, { type: 'bearer' })
+
+		expect(deleteResponse.status).toEqual(202)
+		expect(await userStore.show(createdUser.id as number)).toBeNull()
+	})
 })

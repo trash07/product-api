@@ -1,4 +1,4 @@
-import { UserStore } from '../../models/user'
+import { User, UserStore } from '../../models/user'
 import { AuthenticationQueries } from '../../services/queries/authentication'
 
 describe('User model test suite', () => {
@@ -47,5 +47,44 @@ describe('User model test suite', () => {
 			password
 		)
 		expect(authenticationResult).toEqual(createdUser)
+	})
+
+	it('should define an update method', () => {
+		expect(store.update).toBeDefined()
+	})
+
+	it('update method should update a user', async () => {
+		const createdUser = await store.create({
+			username: 'usernme-for-update',
+			password: '123',
+			lastName: 'UsernameUpdate',
+			firstName: 'Firstname',
+		})
+
+		const updatedUser = await store.update(createdUser.id as number, {
+			username: createdUser.username,
+			password: '1234',
+			lastName: 'UsernameLastUpdate',
+			firstName: 'UserUpdated',
+		})
+
+		const user = (await store.show(createdUser.id as number)) as User
+		expect(user).toEqual(updatedUser)
+	})
+
+	it('should define a delete method', () => {
+		expect(store.delete).toBeDefined()
+	})
+
+	it('delete method should delete a user', async () => {
+		const createdUser = await store.create({
+			username: 'user-to-be-deleted',
+			password: '123',
+			lastName: 'ToDelete',
+			firstName: 'UserDelete',
+		})
+		await store.delete(createdUser.id as number)
+		const retrievedUser = await store.show(createdUser.id as number)
+		expect(retrievedUser).toBeNull()
 	})
 })

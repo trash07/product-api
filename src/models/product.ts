@@ -58,4 +58,6 @@ export class ProductStore {
 			throw new Error(`Could not create product ${e}`)
 		}
 	}
+
+	// Todo: add update and delete methods
 }

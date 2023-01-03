@@ -48,7 +48,48 @@ export const create = async (req: Request, res: Response): Promise<void> => {
 			createdUser,
 			process.env.TOKEN_SECRET as unknown as string
 		)
-		res.status(201).send(token).end()
+		res.status(201).json(token).end()
+	} catch (e) {
+		res.status(400).json('Invalid user data').end()
+	}
+}
+
+/**
+ * Update a User
+ * @param req
+ * @param res
+ */
+const update = async (req: Request, res: Response): Promise<void> => {
+	try {
+		const user: User = {
+			username: req.body.username,
+			password: req.body.password,
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+		}
+		const updatedUser = await store.update(
+			req.params.id as unknown as number,
+			user
+		)
+		const token = jwt.sign(
+			updatedUser,
+			process.env.TOKEN_SECRET as unknown as string
+		)
+		res.status(202).json(token).end()
+	} catch (e) {
+		res.status(400).json('Invalid user data').end()
+	}
+}
+
+/**
+ * Delete a User
+ * @param req
+ * @param res
+ */
+const remove = async (req: Request, res: Response): Promise<void> => {
+	try {
+		await store.delete(req.params.id as unknown as number)
+		res.sendStatus(202)
 	} catch (e) {
 		res.status(400).json('Invalid user data').end()
 	}
@@ -62,4 +103,6 @@ export const userRoutes = (app: express.Application): void => {
 	app.get('/users', [validateJwt], index)
 	app.get('/users/:id', [validateJwt], show)
 	app.post('/users', [validateJwt], create)
+	app.put('/users/:id', [validateJwt], update)
+	app.delete('/users/:id', [validateJwt], remove)
 }

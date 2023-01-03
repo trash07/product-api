@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run tsc && npm run migration:up:prod && node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "npm run tsc && npm run migration:create:database && npm run migration:up && jasmine-ts 'src/tests/**/*Spec.ts' && npm run migration:drop:database",
+    "test": "npm run tsc && npm run migration:create:database && npm run migration:up && jasmine-ts && npm run migration:drop:database",
     "tsc": "tsc",
     "prettier": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
     "eslint": "eslint 'src/**/*.ts'",

@@ -1,2 +1,3 @@
 /src/tests/helpers/reporter.ts
 /src/database.ts
+/src/bin/database.ts

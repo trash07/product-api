@@ -74,6 +74,48 @@ export class UserStore {
 	}
 
 	/**
+	 * Update a user
+	 * @param id
+	 * @param user
+	 */
+	async update(id: number, user: User): Promise<User> {
+		try {
+			const conn = await client.connect()
+			const pepper = process.env.SALT
+			const rounds = process.env.ROUNDS as unknown as string
+			const hash = bcrypt.hashSync(user.password + pepper, parseInt(rounds))
+			const sql = `UPDATE users SET password = $1, last_name = $2, first_name = $3 WHERE id = $4 RETURNING *`
+			const result = await conn.query(sql, [
+				hash,
+				user.lastName,
+				user.firstName,
+				id,
+			])
+			conn.release()
+			return UserStore.convertItem(result.rows[0])
+		} catch (e) {
+			throw new Error(`Could not update user ${id}, ${e}`)
+		}
+	}
+
+	/**
+	 * Delete a user
+	 * @param id
+	 */
+	async delete(id: number): Promise<User | null> {
+		const user = await this.show(id)
+		try {
+			const conn = await client.connect()
+			const sql = `DELETE FROM users WHERE id = ($1)`
+			await conn.query(sql, [id])
+			conn.release()
+			return user
+		} catch (e) {
+			throw new Error(`Could not delete user ${id}, ${e}`)
+		}
+	}
+
+	/**
 	 * Convert a database line to an User type
 	 * @param item
 	 * @private

@@ -1,7 +1,6 @@
 import client from '../database'
 import { OrderStatus } from '../utils/enums/order-status'
 import { OrderProduct } from './order-product'
-import { Product } from './product'
 
 export type Order = {
 	id?: number
@@ -90,6 +89,8 @@ export class OrderStore {
 			throw new Error(`Could not find order ${id}, ${e}`)
 		}
 	}
+
+	// Todo: add delete methods
 
 	/**
 	 * Get products of an order

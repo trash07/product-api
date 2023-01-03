@@ -62,6 +62,8 @@ describe('Orders endpoint test suite', () => {
 		expect(response.body.status).toEqual(updateInfos.status)
 	})
 
+	// Todo: add orders delete specs here
+
 	it('GET /orders/:id/products => should get products in an order', async () => {
 		const order: Order = {
 			user_id: user.id as number,

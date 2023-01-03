@@ -1,7 +1,7 @@
 import supertest from 'supertest'
 import app from '../../server'
 import { User, UserStore } from '../../models/user'
-import { Order, OrderStore } from '../../models/order'
+import { OrderStore } from '../../models/order'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { OrderStatus } from '../../utils/enums/order-status'
@@ -75,8 +75,7 @@ describe('Orders utils endpoints tests', () => {
 			status: OrderStatus.COMPLETE,
 		})
 
-		const response = await request
-			.get(`/completed-user-orders/${user.id}`)
+		const response = await request.get(`/completed-user-orders/${user.id}`)
 
 		expect(response.status).toEqual(401)
 	})
