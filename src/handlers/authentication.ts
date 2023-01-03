@@ -17,12 +17,13 @@ const authenticate = async (req: Request, res: Response): Promise<void> => {
 		const authenticatedUser = await query.authenticate(username, password)
 		if (null === authenticatedUser) {
 			res.status(400).json('invalid user').end()
+			return
 		}
 		const token = jwt.sign(
 			authenticatedUser as User,
 			process.env.TOKEN_SECRET as string
 		)
-		res.status(200).send(token).end()
+		res.status(200).json(token).end()
 	} catch (e) {
 		res.status(400).json('invalid user').end()
 	}
