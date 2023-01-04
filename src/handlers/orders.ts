@@ -28,16 +28,16 @@ const show = async (req: Request, res: Response): Promise<void> => {
  * @param res
  */
 const create = async (req: Request, res: Response): Promise<void> => {
-	const order: Order = {
-		user_id: req.body.user_id,
-		order_date: req.body.order_date,
-		status: req.body.status,
-	}
 	try {
+		const order: Order = {
+			user_id: req.body.user_id,
+			order_date: req.body.order_date,
+			status: req.body.status,
+		}
 		const createdOrder = await store.create(order)
-		res.status(201).send(createdOrder).end()
+		res.status(201).json(createdOrder)
 	} catch (e) {
-		res.sendStatus(400).end()
+		res.status(400).json(`${e}`)
 	}
 }
 

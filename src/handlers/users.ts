@@ -48,6 +48,9 @@ export const create = async (req: Request, res: Response): Promise<void> => {
 			createdUser,
 			process.env.TOKEN_SECRET as unknown as string
 		)
+		console.log(
+			`Username => ${user.username}, Password => ${user.password}, firstname => ${user.firstName}, lastname => ${user.lastName}`
+		)
 		res.status(201).json(token).end()
 	} catch (e) {
 		res.status(400).json('Invalid user data').end()
