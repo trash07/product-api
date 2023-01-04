@@ -1,0 +1,580 @@
+{
+	"info": {
+		"_postman_id": "dff49526-32d7-4135-b821-20c3afc3f15b",
+		"name": "STOREFRONT API COLLECTION (KPETO)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. AUTHENTICATION",
+			"item": [
+				{
+					"name": "a. Registration",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{$randomUserName}}\",\n    \"password\": \"{{$randomPassword}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/register",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "b. Authentication",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"<Please complete with logged username in application console>\",\n    \"password\": \"<Please complete with logged password in application console>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/authenticate",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. PRODUCTS",
+			"item": [
+				{
+					"name": "a. Index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/products",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "b. Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomProductName}}\",\n    \"price\": \"{{$randomInt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/products",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "c. Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/products/{{DEFAULT_ID}}",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"products",
+								"{{DEFAULT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "d. Delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "e. Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomProductName}}\",\n    \"price\": \"{{$randomInt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/products/{{DEFAULT_ID}}",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"products",
+								"{{DEFAULT_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. USERS",
+			"item": [
+				{
+					"name": "a. Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "b. Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "c. Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{$randomUserName}}\",\n    \"password\": \"{{$randomPassword}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/users",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "d. Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/users/{{DEFAULT_ID}}",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"users",
+								"{{DEFAULT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "e. Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{$randomUserName}}\",\n    \"password\": \"{{$randomPassword}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/users/{{DEFAULT_ID}}",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"users",
+								"{{DEFAULT_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. ORDERS",
+			"item": [
+				{
+					"name": "a. Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "b. Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"2\",\n    \"order_date\": \"2022-12-12\",\n    \"status\": \"active\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "c. Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders",
+								"{{DEFAULT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "d. Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders",
+								"{{DEFAULT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "e. Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"2\",\n    \"order_date\": \"2022-12-12\",\n    \"status\": \"complete\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders",
+								"{{DEFAULT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "f. Get products of an order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}/products",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders",
+								"{{DEFAULT_ID}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "g. Add product to order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"order_id\": 1,\n    \"product_id\": 2,\n    \"quantity\": \"{{$randomInt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}/products",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders",
+								"{{DEFAULT_ID}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "h. Update product of an order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"product_id\": 2,\n    \"order_id\": 1,\n    \"quantity\": {{$randomInt}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}/products/2",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders",
+								"{{DEFAULT_ID}}",
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "i. Remove product from an order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}/products/2",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"orders",
+								"{{DEFAULT_ID}}",
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3ROYW1lIjoiTGlsbGlhbiIsImxhc3ROYW1lIjoiTGV1c2Noa2UiLCJwYXNzd29yZCI6IiQyYiQxMCRPNHlzZVhiTkQ1ekZpOEVxS2VUWjBPVXZwVTV1MkRKNTFyQlpKUmxxbWUyaFgybEVsbzBMZSIsInVzZXJuYW1lIjoiUmVzc2llX1dpbGtpbnNvbiIsImlhdCI6MTY3MjgzNDQ5M30.fb3oEScIkfnKyxEvfBjBbBeMDSHULDMjiWwnPw2SwGg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
