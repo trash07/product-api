@@ -57,16 +57,22 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+
+| Column | Type    | Nullable | Description                           |
+|--------|---------|----------|---------------------------------------|
+| id     | SERIAL  | NO       | Unique identifier of a product record |
+| name   | VARCHAR | NO       | Product name                          |
+| price  | INTEGER | NO       | Cost of the product                   |
 
 #### User
-- id
-- firstName
-- lastName
-- password
+
+| Column    | Type    | Nullable | Description                        |
+|-----------|---------|----------|------------------------------------|
+| id        | SERIAL  | NO       | Unique identifier of a user record |
+| username  | VARCHAR | NO       | Username to authenticate user      |
+| password  | VARCHAR | NO       | User encrypted password with salt  |
+| firstName | VARCHAR | NO       | User firtname                      |
+| lastName  | VARCHAR | NO       | User lastname                      |
 
 #### Orders
 - id
