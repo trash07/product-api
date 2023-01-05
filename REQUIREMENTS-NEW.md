@@ -1,10 +1,17 @@
 # API Requirements
-The company stakeholders want to create an online storefront to showcase their great product ideas. Users need to be able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page. You have been tasked with building the API that will support this application, and your coworker is building the frontend.
-
-These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
+This file contains the Restful API specification. It helps having an overview of the API and gives the data shapes of tables and models in use. 
 
 ## API Endpoints
-[Storefront collection JSON file](src/docs/collections/storefront_postman_collection.json)
+To facilitate API testing, there is a postman exported collection associated with the project.
+Download it and import it into your postman. The changable zone in the requests are: 
+* The url (which contains variable your can update to match your environment)
+* The body of the requests
+* The collection authentication JWT.
+
+The following elements gives a link to download the collection and the link to a small video of how to import an test some aspects.
+- [Storefront collection JSON file for Postman testing](src/docs/collections/storefront_postman_collection.json)
+- [Postman collection testing sample video](src/docs/collections/storefront_postman_collection.json)
+
 
 #### Registration and authentication
 
@@ -75,9 +82,21 @@ These are the notes from a meeting with the frontend developer that describe wha
 | lastName  | VARCHAR | NO       | User lastname                      |
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+
+| Column     | Type    | Nullable | Description                                               |
+|------------|---------|----------|-----------------------------------------------------------|
+| id         | SERIAL  | NO       | Unique identifier of order records                        |
+| user_id    | INTEGER | NO       | Reference of user primary key                             |
+| status     | VARCHAR | NO       | Order status (Allowed values are "active" and "complete") |
+| order_date | DATE    | NO       | Date of the order                                         |
+
+#### Order products
+
+| Column     | Type    | Nullable | Description                                  |
+|------------|---------|----------|----------------------------------------------|
+| id         | SERIAL  | NO       | Unique identifier of an ordered product      |
+| product_id | INTEGER | NO       | Reference of product primary key             |
+| order_id   | INTEGER | NO       | Reference of order primary key               |
+| quantity   | INTEGER | NO       | Ordered quantity of the product in the order |
+
 
