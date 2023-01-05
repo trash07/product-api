@@ -5,6 +5,9 @@ The purpose of this file is to document the storefront backend project. It conta
 - How to setup and configure the database
 - How run tests and lunch application
 
+## Repository infos
+* https://github.com/trash07/product-api
+
 ## Installation
 To install the project, you must follow these steps:
 
