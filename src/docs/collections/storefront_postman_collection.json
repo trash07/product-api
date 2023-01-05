@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "dff49526-32d7-4135-b821-20c3afc3f15b",
+		"_postman_id": "fc419bb0-35cc-49cd-af48-702b4ea8be99",
 		"name": "STOREFRONT API COLLECTION (KPETO)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1668806"
 	},
 	"item": [
 		{
@@ -139,7 +140,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "0.0.0.0:{{APP_PORT}}/products/{{DEFAULT_ID}}",
+							"raw": "0.0.0.0:{{APP_PORT}}/products/2",
 							"host": [
 								"0",
 								"0",
@@ -149,7 +150,7 @@
 							"port": "{{APP_PORT}}",
 							"path": [
 								"products",
-								"{{DEFAULT_ID}}"
+								"2"
 							]
 						}
 					},
@@ -158,9 +159,22 @@
 				{
 					"name": "d. Delete",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/products/2",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"products",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -205,7 +219,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/users",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"users"
+							]
+						}
 					},
 					"response": []
 				},
@@ -214,7 +240,20 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/users/1",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"users",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -462,7 +501,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"order_id\": 1,\n    \"product_id\": 2,\n    \"quantity\": \"{{$randomInt}}\"\n}",
+							"raw": "{\n    \"order_id\": 1,\n    \"product_id\": 1,\n    \"quantity\": \"{{$randomInt}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -494,7 +533,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"product_id\": 2,\n    \"order_id\": 1,\n    \"quantity\": {{$randomInt}}\n}",
+							"raw": "{\n    \"id\": 1,\n    \"order_id\": 1,\n    \"quantity\": {{$randomInt}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -502,7 +541,7 @@
 							}
 						},
 						"url": {
-							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}/products/2",
+							"raw": "0.0.0.0:{{APP_PORT}}/orders/{{DEFAULT_ID}}/products/1",
 							"host": [
 								"0",
 								"0",
@@ -514,7 +553,7 @@
 								"orders",
 								"{{DEFAULT_ID}}",
 								"products",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -545,6 +584,55 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "5. ORDERS OF A USER",
+			"item": [
+				{
+					"name": "a. Current active order of a user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/current-user-order/2",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"current-user-order",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "b. Completed orders by a user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "0.0.0.0:{{APP_PORT}}/completed-user-orders/2",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"completed-user-orders",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -552,7 +640,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3ROYW1lIjoiTGlsbGlhbiIsImxhc3ROYW1lIjoiTGV1c2Noa2UiLCJwYXNzd29yZCI6IiQyYiQxMCRPNHlzZVhiTkQ1ekZpOEVxS2VUWjBPVXZwVTV1MkRKNTFyQlpKUmxxbWUyaFgybEVsbzBMZSIsInVzZXJuYW1lIjoiUmVzc2llX1dpbGtpbnNvbiIsImlhdCI6MTY3MjgzNDQ5M30.fb3oEScIkfnKyxEvfBjBbBeMDSHULDMjiWwnPw2SwGg",
+				"value": "",
 				"type": "string"
 			}
 		]
