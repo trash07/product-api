@@ -10,8 +10,8 @@
     "tsc": "tsc",
     "prettier": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
     "eslint": "eslint 'src/**/*.ts'",
-    "migration:up": "ENV=test db-migrate -e test up",
-    "migration:up:prod": "ENV=prod db-migrate -e prod up",
+    "migration:up": "db-migrate -e test up",
+    "migration:up:prod": "db-migrate -e prod up",
     "migration:create:database": "npx . alx-manage-database --create -e test",
     "migration:drop:database": "npx . alx-manage-database --drop -e test"
   },
