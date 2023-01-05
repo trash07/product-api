@@ -5,21 +5,55 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 [Storefront collection JSON file](src/docs/collections/storefront_postman_collection.json)
+
+#### Registration and authentication
+
+| VERB | PATH          | DESCRIPTION                       | AUTHENTICATION |
+|------|---------------|-----------------------------------|----------------|
+| POST | /register     | Register a new user in the system | NONE           |
+| POST | /authenticate | Connect to the system             | NONE           |
+
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+
+| VERB   | PATH          | DESCRIPTION                     | AUTHENTICATION |
+|--------|---------------|---------------------------------|----------------|
+| GET    | /products     | Product index. List of products | NONE           |
+| GET    | /products/:id | Product details                 | NONE           |
+| POST   | /products     | Add a new product to catalog    | JWT            |
+| PUT    | /products/:id | Update a product in catalog     | JWT            |
+| DELETE | /products/:id | Delete a product in catalog     | JWT            |
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+
+| VERB   | PATH       | DESCRIPTION               | AUTHENTICATION |
+|--------|------------|---------------------------|----------------|
+| GET    | /users     | User index. List of users | JWT            |
+| GET    | /users/:id | User details              | JWT            |
+| POST   | /users     | Create a new user         | JWT            |
+| PUT    | /users/:id | Update user information   | JWT            |
+| DELETE | /users/:id | Delete a user             | JWT            |
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+
+| VERB   | PATH                      | DESCRIPTION                            | AUTHENTICATION |
+|--------|---------------------------|----------------------------------------|----------------|
+| GET    | /orders                   | Order index. List of orders            | NONE           |
+| GET    | /orders/:id               | Get order details                      | NONE           |
+| POST   | /orders                   | Create an order                        | NONE           |
+| PUT    | /orders/:id               | Update an order                        | NONE           |
+| DELETE | /orders/:id               | Delete an order                        | NONE           |
+| GET    | /orders/:id/products      | Get products in a order                | NONE           |
+| GET    | /orders/:id/products/:pid | Get an ordered product details         | NONE           |
+| POST   | /orders/:id/products      | Add a product and quantity to an order | NONE           |
+| PUT    | /orders/:id/products/:pid | Update a product line in an order      | NONE           |
+| DELETE | /orders/:id/products/:pid | Delete a product line from an order    | NONE           |
+
+#### Orders of a user 
+
+| VERB | PATH                       | DESCRIPTION                    | AUTHENTICATION |
+|------|----------------------------|--------------------------------|----------------|
+| GET  | /current-user-order/:id    | Current active order of a user | JWT            |
+| GET  | /completed-user-orders/:id | Completed orders of a user     | JWT            |
 
 ## Data Shapes
 #### Product
