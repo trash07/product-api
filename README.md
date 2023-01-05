@@ -7,6 +7,7 @@ The purpose of this file is to document the storefront backend project. It conta
 
 ## Repository infos
 * https://github.com/trash07/product-api
+* [Setup sample video](src/docs/videos/explication_video.mp4)
 
 ## Installation
 To install the project, you must follow these steps:
@@ -84,6 +85,6 @@ You can now access it typing: http://localhost:3000
 | Element                  | Value                 |
 |--------------------------|-----------------------|
 | Application port         | 3000                  |
-| Application URL          | http://localhost:3000 |
-| PostgreSQL database host | localhost             |
+| Application URL          | http://0.0.0.0:3000 |
+| PostgreSQL database host | 0.0.0.0             |
 | PostgreSQL database PORT | 5432                  |
